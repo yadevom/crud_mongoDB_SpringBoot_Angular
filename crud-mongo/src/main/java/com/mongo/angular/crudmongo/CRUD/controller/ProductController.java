@@ -3,6 +3,7 @@ package com.mongo.angular.crudmongo.CRUD.controller;
 import com.mongo.angular.crudmongo.CRUD.dto.ProductDto;
 import com.mongo.angular.crudmongo.CRUD.entity.Product;
 import com.mongo.angular.crudmongo.CRUD.service.ProductService;
+import com.mongo.angular.crudmongo.global.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +23,7 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Product> getOne(@PathVariable("id") int id) {
+    public ResponseEntity<Product> getOne(@PathVariable("id") int id) throws ResourceNotFoundException {
         return ResponseEntity.ok(productService.getOne(id));
     }
 

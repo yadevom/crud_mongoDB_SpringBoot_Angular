@@ -3,6 +3,7 @@ package com.mongo.angular.crudmongo.CRUD.service;
 import com.mongo.angular.crudmongo.CRUD.dto.ProductDto;
 import com.mongo.angular.crudmongo.CRUD.entity.Product;
 import com.mongo.angular.crudmongo.CRUD.repository.ProductRepository;
+import com.mongo.angular.crudmongo.global.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,8 +20,9 @@ public class ProductService {
         return productRepository.findAll();
     }
 
-    public Product getOne(int id) {
-        return productRepository.findById(id).get();
+    public Product getOne(int id) throws ResourceNotFoundException {
+        return productRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("not found"));
     }
 
     public Product save(ProductDto dto) {
